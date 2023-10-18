@@ -5,10 +5,12 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        Node<Integer> node = fromArray(new Integer[]{1, 2, 3, 4, 5, 8, 10, 8, 1, 3, 2, 11, null, 12});
-        Node<Integer> subNode = fromArray(new Integer[]{5, 3, 2});
+        Node<Integer> node = fromArray(new Integer[]{1, 2, 3, 4, 5, 8, 10, 8, 1, 3, 2, 11, 1, null, 12});
+        printTree(node);
+        Node<Integer> subNode = fromArray(new Integer[]{2,4,5,1,3,2});
+        printTree(subNode);
         boolean isSub = check(node, subNode);
-        System.out.println(isSub);
+        System.out.println("Result: " + isSub);
     }
 
     public static <T>boolean check(Node<T> root, Node<T> subRoot) {
@@ -45,11 +47,25 @@ public class Main {
         return false;
     }
 
-    public static <T>void printTree(Node<T> root) {
-        if(root.left == null || root.right == null) {
-            return;
-        }
+    public static <T>void printTree(Node<T> node) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("   ");
+        printTree(node, sb, "   ");
+        System.out.println(sb);
+        System.out.println();
+    }
 
+    public static <T>void printTree(Node<T> root, StringBuilder stringBuilder, String space) {
+        stringBuilder.append(root.val);
+        if(root.left != null) {
+            stringBuilder.append("\n").append(space).append("├──");
+            printTree(root.left, stringBuilder, space + "│" + "  ");
+        }
+        if(root.right != null) {
+            stringBuilder.append("\n").append(space).append("│  ");
+            stringBuilder.append("\n").append(space).append("├──");
+            printTree(root.right, stringBuilder, space + "│  ");
+        }
     }
 
     public static  <T>Node<T> fromArray(T[] tree) {
