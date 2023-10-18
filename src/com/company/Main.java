@@ -11,6 +11,11 @@ public class Main {
         printTree(subNode);
         boolean isSub = check(node, subNode);
         System.out.println("Result: " + isSub);
+
+        Node<Integer> subNodeN = fromArray(new Integer[]{2,4,5, 8, 1,null,2});
+        printTree(subNodeN);
+        isSub = check(node, subNodeN);
+        System.out.println("Result: " + isSub);
     }
 
     public static <T>boolean check(Node<T> root, Node<T> subRoot) {
@@ -35,7 +40,7 @@ public class Main {
     }
 
     public static <T>boolean isSubTree(Node<T> root, Node<T> subRoot) {
-        if(subRoot == null) {
+        if(subRoot == null || subRoot.val == null) {
             return true;
         }
         if(root == null) {
