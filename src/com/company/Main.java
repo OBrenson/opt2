@@ -6,31 +6,61 @@ public class Main {
 
     public static void main(String[] args) {
         Node<Integer> node = fromArray(new Integer[]{1, 2, 3, 4, 5, 8, 10, 8, 1, 3, 2, 11, 1, null, 12});
+        System.out.println(getHeight(node, 1));
         printTree(node);
-        Node<Integer> subNode = fromArray(new Integer[]{2,4,5,1,3,2});
+        Node<Integer> subNode = fromArray(new Integer[]{2,4,5,null,3,null});
+        System.out.println(getHeight(subNode, 1));
         printTree(subNode);
-        boolean isSub = check(node, subNode);
+        boolean isSub = isSub(node, subNode);
         System.out.println("Result: " + isSub);
 
         Node<Integer> subNodeN = fromArray(new Integer[]{2,4,5, 8, 1,null,2});
         printTree(subNodeN);
-        isSub = check(node, subNodeN);
+        isSub = isSub(subNodeN, node);
         System.out.println("Result: " + isSub);
     }
 
-    public static <T>boolean check(Node<T> root, Node<T> subRoot) {
+    public static <T>boolean isSub(Node<T> fNode, Node<T> sNode) {
+        int fHeight = getHeight(fNode, 1);
+        int sHeight = getHeight(sNode, 1);
+        boolean res;
+        if(fHeight > sHeight) {
+            res = check(fNode, sNode, 0, fHeight - sHeight);
+        } else {
+            res = check(sNode, fNode, 0, sHeight - fHeight);
+        }
+        return res;
+    }
+
+    public static <T>int getHeight(Node<T> node, int height) {
+        if(node.val == null) {
+            return height;
+        }
+        if(node.left != null) {
+            return getHeight(node.left, ++height);
+        }
+        if(node.right != null) {
+            return getHeight(node.right, ++height);
+        }
+        return height;
+    }
+
+    public static <T>boolean check(Node<T> root, Node<T> subRoot, int height, int border) {
+        if(height > border) {
+            return false;
+        }
         boolean res = isSubTree(root, subRoot);
         if(res) {
             return res;
         } else {
             if (root.left != null) {
-                res = check(root.left, subRoot);
+                res = check(root.left, subRoot, ++height, border);
                 if(res) {
                     return res;
                 }
             }
             if(root.right != null) {
-                res = check(root.right, subRoot);
+                res = check(root.right, subRoot, ++height, border);
                 if(res) {
                     return res;
                 }
