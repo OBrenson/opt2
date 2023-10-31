@@ -5,19 +5,40 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        Node<Integer> node = fromArray(new Integer[]{1, 2, 3, 4, 5, 8, 10, 8, 1, 3, 2, 11, 1, null, 12});
-        System.out.println(getHeight(node, 1));
-        printTree(node);
-        Node<Integer> subNode = fromArray(new Integer[]{2,4,5,null,3,null});
-        System.out.println(getHeight(subNode, 1));
-        printTree(subNode);
-        boolean isSub = isSub(node, subNode);
-        System.out.println("Result: " + isSub);
+//        Node<Integer> node = fromArray(new Integer[]{1, 2, 3, 4, 5, 8, 10, 8, 1, 3, 2, 11, 1, null, 12});
+//        System.out.println(getHeight(node, 1));
+//        printTree(node);
+//        Node<Integer> subNode = fromArray(new Integer[]{2,4,5,null,3,null});
+//        System.out.println(getHeight(subNode, 1));
+//        printTree(subNode);
+//        boolean isSub = isSub(node, subNode);
+//        System.out.println("Result: " + isSub);
+//
+//        Node<Integer> subNodeN = fromArray(new Integer[]{2,4,5, 8, 1,null,2});
+//        printTree(subNodeN);
+//        isSub = isSub(subNodeN, node);
+//        System.out.println("Result: " + isSub);
+        int n = 0b1000000000000000000000000000001;
+        int m = 0b1001001;
+        printBits("N", n);
+        printBits("M", m);
+        int res = insertBits(n,m,10,16);
+        printBits("RES", res);
+    }
 
-        Node<Integer> subNodeN = fromArray(new Integer[]{2,4,5, 8, 1,null,2});
-        printTree(subNodeN);
-        isSub = isSub(subNodeN, node);
-        System.out.println("Result: " + isSub);
+    public static int insertBits(int n, int m, int i, int j) {
+        int mask = -1;
+        mask = mask >>> (j - i + 1);
+        int shift = i + (j - i + 1);
+        mask = (mask << shift) | (mask >>> (32 - shift));
+        printBits("MASK", mask);
+        n = n & mask;
+        m = m << i;
+        return n | m;
+    }
+
+    public static void printBits(String name, int val) {
+        System.out.println(name+ ": " + String.format("%32s", Integer.toBinaryString(val)).replace(' ', '0'));
     }
 
     public static <T>boolean isSub(Node<T> fNode, Node<T> sNode) {
