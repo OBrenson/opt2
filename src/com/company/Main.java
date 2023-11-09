@@ -18,12 +18,17 @@ public class Main {
 //        printTree(subNodeN);
 //        isSub = isSub(subNodeN, node);
 //        System.out.println("Result: " + isSub);
-        int n = 0b1000000000000000000000000000001;
-        int m = 0b1001001;
-        printBits("N", n);
-        printBits("M", m);
-        int res = insertBits(n,m,10,16);
-        printBits("RES", res);
+
+
+
+//        int n = 0b1000000000000000000000000000001;
+//        int m = 0b1001001;
+//        printBits("N", n);
+//        printBits("M", m);
+//        int res = insertBits(n,m,10,16);
+//        printBits("RES", res);
+
+        Recursion.lesson();
     }
 
     public static int insertBits(int n, int m, int i, int j) {
