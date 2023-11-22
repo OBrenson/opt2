@@ -28,7 +28,9 @@ public class Main {
 //        int res = insertBits(n,m,10,16);
 //        printBits("RES", res);
 
-        Recursion.lesson();
+//        Recursion.lesson();
+
+        Exercise.exercise(1000, 10);
     }
 
     public static int insertBits(int n, int m, int i, int j) {
